@@ -1,38 +1,39 @@
-name: Como usar variaveis de ambiente
+name: Como usar variavel de ambiente e contexto do GitHub Actions
+
 on:
-  workflow_dispatch:
+  push:
+    branches: [main]
+
 env:
-  ENV_WORKFLOW: "VALOR WORKFLOW"
-  
+  ENV_WORKFLOW: "Valor WORKFLOW"
+
 jobs:
-  primeira-execucao:
+  contextos:
     runs-on: ubuntu-latest
     env:
-      ENV_JOB: "PRIMEIRO JOB"
+      ENV_JOB: "Valor JOB CONTEXT"
     steps:
-      - name: Execucao
+      - name: Contexto github
         env:
-          ENV_ACTION: "PRIMEIRA EXECUCAO"      
-        run: |
-          echo "1 - $ENV_WORKFLOW"
-          echo "3 - $ENV_JOB"
-          echo "4 - $ENV_ACTION"
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
 
-      - name: Execucao
+      - name: Contexto env
         env:
-          ENV_ACTION: "SEGUNDA SEGUNDA EXECUCAO"
-        run: |
-          echo "1 - $ENV_WORKFLOW"
-          echo "3 - $ENV_JOB"
-          echo "4 - $ENV_ACTION"
+          ENV_CONTEXT: ${{ toJson(env) }}
+        run: echo "$ENV_CONTEXT"
 
-  segunda-execucao:
-    needs: primeira-execucao
-    runs-on: ubuntu-latest
-    env:
-      ENV_JOB: "SEGUNDO JOB"
-    steps:
-      - name: Execucao
-        run: |
-          echo "1 - $ENV_WORKFLOW"
-          echo "2 - $ENV_JOB"
+      - name: Contexto job
+        env:
+          JOB_CONTEXT: ${{ toJson(job) }}
+        run: echo "$JOB_CONTEXT"
+
+      - name: Contexto steps
+        env:
+          STEPS_CONTEXT: ${{ toJson(steps) }}
+        run: echo "$STEPS_CONTEXT"
+
+      - name: Contexto runner
+        env:
+          RUNNER_CONTEXT: ${{ toJson(runner) }}
+        run: echo "$RUNNER_CONTEXT"
