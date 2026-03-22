@@ -34,4 +34,4 @@ jobs:
       - name: Execucao
         run: |
           echo "1 - $ENV_WORKFLOW"
-          echo "2 - $ENV_ACTION"
+          echo "2 - $ENV_JOB"
