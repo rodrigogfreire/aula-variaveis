@@ -5,16 +5,33 @@ env:
   ENV_JOB: "VALOR WORKFLOW"
   
 jobs:
-  teste-evmv:
+  primeira-execucao:
     runs-on: ubuntu-latest
     env:
-      ENV_ACTION: "VALOR JOB"
+      ENV_ACTION: "PRIMEIRO JOB"
     steps:
       - name: Execucao
         env:
-          ENV_WORKFLOW: "VALOR ACTION"      
+          ENV_WORKFLOW: "PRIMEIRA EXECUCAO"      
         run: |
           echo "1 - $ENV_WORKFLOW"
-          echo "2 - $ENV_JOB"
-          echo "3 - $ENV_ACTION"
-      
+          echo "2 - $ENV_ACTION"
+          echo "3 - $ENV_JOB"
+          
+      - name: Execucao
+        env:
+          ENV_WORKFLOW: "SEGUNDA SEGUNDA EXECUCAO"
+        run: |
+          echo "1 - $ENV_WORKFLOW"
+          echo "2 - $ENV_ACTION"
+          echo "3 - $ENV_JOB"          
+
+  segunda-execucao:
+    runs-on: ubuntu-latest
+    env:
+      ENV_ACTION: "SEGUNDO JOB"
+    steps:
+      - name: Execucao
+        run: |
+          echo "1 - $ENV_WORKFLOW"
+          echo "2 - $ENV_ACTION"
