@@ -27,6 +27,7 @@ jobs:
           echo "4 - $ENV_ACTION"
 
   segunda-execucao:
+    needs: primeira-execucao
     runs-on: ubuntu-latest
     env:
       ENV_JOB: "SEGUNDO JOB"
